@@ -13,16 +13,16 @@ const api = (function() {
     
     // fetch from items URL, return promise 
     // what to return?? use Promise.return()??
-    return fetch(itemsURL)
-      .then(response => response.json());
+    return fetch(itemsURL);
 
   }
 
-  function createItem(name){
+
+
+  function createItem(name) {
     const newItem = JSON.stringify({
       name,
     });
-    // console.log(newItem);
 
     return fetch(itemsURL, {
       method: 'POST',
@@ -31,9 +31,27 @@ const api = (function() {
     });
   }
 
+
+
+  function updateItem(id, updateData) {
+
+    const updateIdURL = itemsURL + '/' + id;
+    const body = JSON.stringify(updateData);
+
+    console.log(updateIdURL);
+
+    return fetch(updateIdURL, {
+      method: 'PATCH',
+      headers: new Headers({ 'Content-Type': 'application/json'}),
+      body,
+    });
+
+  }
+
   return {
     getItems,
     createItem,
+    updateItem,
   };
 
 })();
